@@ -1,12 +1,12 @@
 ﻿using Entities.Entities;
 using Resources.FilterModels;
+using Resources.RequestModels;
 
-
-namespace Logic.ILogic
+namespace API.IServices
 {
-    public interface IUserLogic
+    public interface IUserService
     {
-        int InsertUser(UserItem userItem);
+        int InsertUser(NewUserRequest newProductRequest);
         void UpdateUser(UserItem userItem);
         void DeleteUser(int id);
         List<UserItem> GetAllUsers();
