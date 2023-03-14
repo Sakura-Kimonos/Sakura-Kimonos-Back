@@ -1,6 +1,6 @@
 ﻿namespace Data
 {
-    public class ServiceContext
+    public class ServiceContext : DbContext
     {
 
     }
