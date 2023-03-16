@@ -1,12 +1,12 @@
 using API.IServices;
-using API.Middlewares;
+//using API.Middlewares;
 using API.Services;
 using Data;
 using Logic.ILogic;
 using Logic.Logic;
 using Microsoft.EntityFrameworkCore;
-using Security.IServices;
-using Security.Services;
+//using Security.IServices;
+//using Security.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +17,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserSecurityService, UserSecurityService>();
+//builder.Services.AddScoped<IUserSecurityService, UserSecurityService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<IUserSecurityLogic, UserSecurityLogic>();
+//builder.Services.AddScoped<IUserSecurityLogic, UserSecurityLogic>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
 builder.Services.AddDbContext<ServiceContext>(
@@ -35,13 +35,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.Use(async (context, next) => {
-    var serviceScope = app.Services.CreateScope();
-    var userSecurityService = serviceScope.ServiceProvider.GetRequiredService<IUserSecurityService>();
-    var requestAuthorizationMiddleware = new RequestAuthorizationMiddleware(userSecurityService);
-    requestAuthorizationMiddleware.ValidateRequestAutorizathion(context);
-    await next();
-});
+//app.Use(async (context, next) => {
+//    var serviceScope = app.Services.CreateScope();
+//    var userSecurityService = serviceScope.ServiceProvider.GetRequiredService<IUserSecurityService>();
+//    var requestAuthorizationMiddleware = new RequestAuthorizationMiddleware(userSecurityService);
+//    requestAuthorizationMiddleware.ValidateRequestAutorizathion(context);
+//    await next();
+//});
 
 app.UseHttpsRedirection();
 

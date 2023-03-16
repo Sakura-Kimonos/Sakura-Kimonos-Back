@@ -2,7 +2,7 @@
 using Entities.Entities;
 using Logic.ILogic;
 using Resources.FilterModels;
-using Resources.Enums;
+//using Resources.Enums;
 
 namespace Logic.Logic
 {
@@ -50,17 +50,17 @@ namespace Logic.Logic
 
         public int InsertUser(UserItem userItem)
         {
-            if (userItem.IdRol == (int)UserEnums.Administrator)
-            {
-                throw new InvalidOperationException();
-            };
+            //if (userItem.IdRol == (int)UserEnums.Administrator)
+            //{
+            //    throw new InvalidOperationException();
+            //};
 
-            userItem.EncryptedToken = "NOT GENERATED";
+            //userItem.EncryptedToken = "NOT GENERATED";
 
             _serviceContext.Users.Add(userItem);
             _serviceContext.SaveChanges();
-
             return userItem.Id;
+
         }
 
         public void UpdateUser(UserItem userItem)

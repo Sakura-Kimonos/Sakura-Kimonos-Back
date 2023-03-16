@@ -9,11 +9,11 @@ namespace API.Services
     public class UserService : IUserService
     {
         private readonly IUserLogic _userLogic;
-        private readonly IUserSecurityLogic _userSecurityLogic;
-        public UserService(IUserLogic userLogic, IUserSecurityLogic userSecurityLogic)
+        //private readonly IUserSecurityLogic _userSecurityLogic;
+        public UserService(IUserLogic userLogic)
         {
             _userLogic = userLogic;
-            _userSecurityLogic = userSecurityLogic;
+            //_userSecurityLogic = userSecurityLogic;
         }
 
         public void DeleteUser(int id)
@@ -31,11 +31,10 @@ namespace API.Services
             return _userLogic.GetUsersByCriteria(userFilter);
         }
 
-        public int InsertUser(NewUserRequest newUserRequest)
+        public int InsertUser(UserRequest userRequest)
         {
-            var newUserItem = newUserRequest.ToUserItem();
-            newUserItem.EncryptedPassword = _userSecurityLogic.HashString(newUserRequest.Password);
-            return _userLogic.InsertUser(newUserItem);
+            var newUserRequest = userRequest.ToUserItem();
+            return _userLogic.InsertUser(newUserRequest);
         }
 
         public void UpdateUser(UserItem userItem)

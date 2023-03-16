@@ -3,7 +3,7 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Resources.FilterModels;
 using Resources.RequestModels;
-using Security.IServices;
+//using Security.IServices;
 
 namespace API.Controllers
 {
@@ -11,24 +11,24 @@ namespace API.Controllers
     [Route("[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserSecurityService _userSecurityService;
+        //private readonly IUserSecurityService _userSecurityService;
         private readonly IUserService _userService;
-        public UserController(IUserSecurityService userSecurityService, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _userSecurityService = userSecurityService;
+            //_userSecurityService = userSecurityService;
             _userService = userService;
         }
-        [HttpPost(Name = "LoginUser")]
-        public string Login([FromBody] LoginRequest loginRequest)
-        {
+        //[HttpPost(Name = "LoginUser")]
+        //public string Login([FromBody] LoginRequest loginRequest)
+        //{
 
-            return _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
-        }
+        //    return _userSecurityService.GenerateAuthorizationToken(loginRequest.UserName, loginRequest.UserPassword);
+        //}
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromBody] NewUserRequest newUserRequest)
+        public int InsertUser([FromBody] UserRequest userRequest)
         {
-            return _userService.InsertUser(newUserRequest);
+            return _userService.InsertUser(userRequest);
         }
 
         [HttpGet(Name = "GetAllUsers")]
