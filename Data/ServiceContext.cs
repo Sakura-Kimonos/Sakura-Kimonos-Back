@@ -10,6 +10,7 @@ namespace Data
     {
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options) { }
         public DbSet<UserItem> Users { get; set; }
+        public DbSet<ProductItem> Products { get; set; }
         public DbSet<UserRolItem> UserRols { get; set; }
         public DbSet<AuthorizationItem> UserAuthorizations { get; set; }
         public DbSet<RolAuthorization> RolsAuthorizations { get; set; }
@@ -18,23 +19,30 @@ namespace Data
 
             builder.Entity<UserItem>(user =>
             {
-                user.ToTable("t_users");
+                user.ToTable("Users");
                 user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.IdRol);
             });
 
+            builder.Entity<ProductItem>(product =>
+            {
+                product.ToTable("Products");
+
+            }
+            );
+
             builder.Entity<UserRolItem>(user =>
             {
-                user.ToTable("t_user_rols");
+                user.ToTable("User_rols");
             });
 
             builder.Entity<AuthorizationItem>(user =>
             {
-                user.ToTable("t_endpoint_authorizations");
+                user.ToTable("Endpoint_authorizations");
             });
 
             builder.Entity<RolAuthorization>(user =>
             {
-                user.ToTable("t_rols_authorizations");
+                user.ToTable("Rols_authorizations");
                 user.HasOne<UserRolItem>().WithMany().HasForeignKey(a => a.IdRol);
                 user.HasOne<AuthorizationItem>().WithMany().HasForeignKey(a => a.IdAuthorization);
             });
