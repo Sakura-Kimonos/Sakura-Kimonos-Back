@@ -11,13 +11,12 @@ namespace API.Controllers
     [Route("[controller]/[action]")]
     public class ProductController : ControllerBase
     {
-        //private readonly IUserSecurityService _userSecurityService;
+        
         private readonly IProductService _productService;
         public ProductController(IProductService productService)
         {
             _productService = productService;
         }
-        
 
         [HttpPost(Name = "AddProduct")]
         public int AddProduct([FromBody] ProductRequest productRequest)

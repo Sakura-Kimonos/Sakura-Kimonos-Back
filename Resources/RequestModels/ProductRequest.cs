@@ -11,6 +11,8 @@ namespace Resources.RequestModels
     public class ProductRequest
     {
         public string Name { get; set; }
+
+        public int IdPhotoFile { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
         public string Category { get; set; }
@@ -23,6 +25,7 @@ namespace Resources.RequestModels
             var product = new ProductItem();
 
             product.Name = Name;
+            product.IdPhotoFile= IdPhotoFile;
             product.Description = Description;
             product.Price = Price;
             product.Category = Category;

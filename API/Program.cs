@@ -5,8 +5,7 @@ using Data;
 using Logic.ILogic;
 using Logic.Logic;
 using Microsoft.EntityFrameworkCore;
-//using Security.IServices;
-//using Security.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +18,13 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddScoped<IUserSecurityService, UserSecurityService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 //builder.Services.AddScoped<IUserSecurityLogic, UserSecurityLogic>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
+builder.Services.AddScoped<IProductLogic, ProductLogic>();
+
 
 builder.Services.AddDbContext<ServiceContext>(
         options => options.UseSqlServer("name=ConnectionStrings:ServiceContext"));

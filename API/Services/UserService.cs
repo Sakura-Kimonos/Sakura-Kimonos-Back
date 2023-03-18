@@ -31,10 +31,10 @@ namespace API.Services
             return _userLogic.GetUsersByCriteria(userFilter);
         }
 
-        public int InsertUser(UserRequest userRequest)
+        public int InsertUser(UserItem userItem)
         {
-            var newUserRequest = userRequest.ToUserItem();
-            return _userLogic.InsertUser(newUserRequest);
+            //var newUserRequest = userRequest.ToUserItem();
+            return _userLogic.InsertUser(userItem);
         }
 
         public void UpdateUser(UserItem userItem)

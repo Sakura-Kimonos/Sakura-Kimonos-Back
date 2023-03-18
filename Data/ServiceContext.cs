@@ -1,8 +1,15 @@
-﻿using Entities.Entities;
+﻿using API.Models;
+using Entities.Entities;
 using Entities.Relations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Data
 {
@@ -14,37 +21,45 @@ namespace Data
         public DbSet<UserRolItem> UserRols { get; set; }
         public DbSet<AuthorizationItem> UserAuthorizations { get; set; }
         public DbSet<RolAuthorization> RolsAuthorizations { get; set; }
+        public DbSet<FileItem> Files { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             builder.Entity<UserItem>(user =>
             {
-                user.ToTable("Users");
-                //user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.IdRol);
+                user.ToTable("t_users");
+                user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.IdRol);
             });
 
             builder.Entity<ProductItem>(product =>
             {
-                product.ToTable("Products");
-
+                product.ToTable("t_products");
+                product.HasOne<FileItem>().WithMany().HasForeignKey(u => u.IdPhotoFile);
             }
             );
 
             builder.Entity<UserRolItem>(user =>
             {
-                user.ToTable("User_rols");
+                user.ToTable("t_user_rols");
             });
 
             builder.Entity<AuthorizationItem>(user =>
             {
-                user.ToTable("Endpoint_authorizations");
+                user.ToTable("t_endpoint_authorizations");
             });
 
             builder.Entity<RolAuthorization>(user =>
             {
-                user.ToTable("Rols_authorizations");
+                user.ToTable("t_rols_authorizations");
                 user.HasOne<UserRolItem>().WithMany().HasForeignKey(a => a.IdRol);
                 user.HasOne<AuthorizationItem>().WithMany().HasForeignKey(a => a.IdAuthorization);
+            });
+
+            builder.Entity<FileItem>(user =>
+            {
+                user.ToTable("t_files");
+                
+
             });
         }
     }

@@ -50,12 +50,6 @@ namespace Logic.Logic
 
         public int InsertUser(UserItem userItem)
         {
-            //if (userItem.IdRol == (int)UserEnums.Administrator)
-            //{
-            //    throw new InvalidOperationException();
-            //};
-
-            //userItem.EncryptedToken = "NOT GENERATED";
 
             _serviceContext.Users.Add(userItem);
             _serviceContext.SaveChanges();

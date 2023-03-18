@@ -22,6 +22,36 @@ namespace Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("API.Models.FileItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("FileExtension")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("t_files", (string)null);
+                });
+
             modelBuilder.Entity("Entities.Entities.AuthorizationItem", b =>
                 {
                     b.Property<int>("Id")
@@ -51,7 +81,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Endpoint_authorizations", (string)null);
+                    b.ToTable("t_endpoint_authorizations", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.ProductItem", b =>
@@ -72,6 +102,9 @@ namespace Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdPhotoFile")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("IdWeb")
                         .HasColumnType("uniqueidentifier");
@@ -109,7 +142,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.HasIndex("IdPhotoFile");
+
+                    b.ToTable("t_products", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.UserItem", b =>
@@ -124,11 +159,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EncryptedToken")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FailedConsecutiveLogins")
+                    b.Property<int>("IdRol")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("InsertDate")
@@ -137,8 +168,9 @@ namespace Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("TokenExpireDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -149,7 +181,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.HasIndex("IdRol");
+
+                    b.ToTable("t_users", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Entities.UserRolItem", b =>
@@ -175,7 +209,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User_rols", (string)null);
+                    b.ToTable("t_user_rols", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Relations.RolAuthorization", b =>
@@ -201,7 +235,25 @@ namespace Data.Migrations
 
                     b.HasIndex("IdRol");
 
-                    b.ToTable("Rols_authorizations", (string)null);
+                    b.ToTable("t_rols_authorizations", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Entities.ProductItem", b =>
+                {
+                    b.HasOne("API.Models.FileItem", null)
+                        .WithMany()
+                        .HasForeignKey("IdPhotoFile")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Entities.UserItem", b =>
+                {
+                    b.HasOne("Entities.Entities.UserRolItem", null)
+                        .WithMany()
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Relations.RolAuthorization", b =>

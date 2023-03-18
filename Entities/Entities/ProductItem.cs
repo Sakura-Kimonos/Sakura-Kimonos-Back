@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,9 @@ namespace Entities.Entities
         }
 
         public int Id { get; set; }
+
+        public int IdPhotoFile { get; set; }
+        //public virtual FileItem PhotoFile { get; set; }
         public Guid IdWeb { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -32,7 +36,6 @@ namespace Entities.Entities
 
         public DateTime UpdateDate { get; set; }
         public DateTime AddedDate { get; set; }
-
 
     }
 }

@@ -1,24 +1,24 @@
-﻿using Entities.Entities;
+﻿//using Entities.Entities;
 
-namespace Resources.RequestModels
-{
-    public class UserRequest
-    {
-        //public int IdRol { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+//namespace Resources.RequestModels
+//{
+//    public class UserRequest
+//    {
+//        public int IdRol { get; set; }
+//        public string UserName { get; set; }
+//        public string Password { get; set; }
 
-        public UserItem ToUserItem()
-        {
-            var userItem = new UserItem();
+//        public UserItem ToUserItem()
+//        {
+//            var userItem = new UserItem();
 
-            //userItem.IdRol = IdRol;
-            userItem.UserName = UserName;
-            userItem.InsertDate = DateTime.Now;
-            userItem.UpdateDate = DateTime.Now;
-            userItem.IsActive = true;
+//            userItem.IdRol = IdRol;
+//            userItem.UserName = UserName;
+//            userItem.InsertDate = DateTime.Now;
+//            userItem.UpdateDate = DateTime.Now;
+//            userItem.IsActive = true;
 
-            return userItem;
-        }
-    }
-}
+//            return userItem;
+//        }
+//    }
+//}

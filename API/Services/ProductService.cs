@@ -3,6 +3,7 @@ using Entities.Entities;
 using Logic.ILogic;
 using Resources.FilterModels;
 using Resources.RequestModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Services
 {
@@ -13,7 +14,6 @@ namespace API.Services
         public ProductService(IProductLogic productLogic)
         {
             _productLogic = productLogic;
-      
         }
 
         void IProductService.DeactivateProduct(int id)

@@ -1,4 +1,5 @@
 ﻿using API.IServices;
+using Data;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Resources.FilterModels;
@@ -26,9 +27,9 @@ namespace API.Controllers
         //}
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromBody] UserRequest userRequest)
+        public int InsertUser([FromBody] UserItem userItem)
         {
-            return _userService.InsertUser(userRequest);
+            return _userService.InsertUser(userItem);
         }
 
         [HttpGet(Name = "GetAllUsers")]
@@ -54,5 +55,23 @@ namespace API.Controllers
         {
             return _userService.GetUsersByCriteria(userFilter);
         }
-    }
-}
+
+        //[HttpGet(Name = "GetBirthdayEmployee")]
+        //public List<ProductItem> GetBirthdayEmployee()
+        //{
+
+        //    //sin virtual
+        //    //var employee = _serviceContext.Set<EmployeeItem>().Where(p => p.Id == employeeId).First();
+        //    //var person = _serviceContext.Set<PersonItem>().Where(p => p.Id == employee.IdPerson).First();
+        //    //return person.BirthDay;
+
+        //    //con virtual
+
+        //    var employeeList = _serviceContext.Set<EmployeeItem>().Where(p => p.IsActive);
+        //    var first = employeeList.FirstOrDefault();
+        //    return first.Person.BirthDay;
+        }
+ }
+
+
+
