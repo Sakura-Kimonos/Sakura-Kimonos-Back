@@ -27,7 +27,7 @@ namespace API.Controllers
         //}
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromBody] UserItem userItem)
+        public int InsertUser([FromForm] UserItem userItem)
         {
             return _userService.InsertUser(userItem);
         }
