@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ServiceContext))]
-    [Migration("20230317162315_initial")]
+    [Migration("20230321140407_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -162,9 +162,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
 
@@ -175,6 +172,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Rol")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -182,9 +182,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserRol")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRol");
+                    b.HasIndex("Rol");
 
                     b.ToTable("t_users", (string)null);
                 });
@@ -196,6 +199,10 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("InsertDate")
                         .HasColumnType("datetime2");
@@ -212,7 +219,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("t_user_rols", (string)null);
+                    b.ToTable("t_userRol", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Relations.RolAuthorization", b =>
@@ -254,7 +261,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entities.Entities.UserRolItem", null)
                         .WithMany()
-                        .HasForeignKey("IdRol")
+                        .HasForeignKey("Rol")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

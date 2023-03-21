@@ -46,19 +46,20 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "t_user_rols",
+                name: "t_userRol",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_t_user_rols", x => x.Id);
+                    table.PrimaryKey("PK_t_userRol", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,9 +114,9 @@ namespace Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_t_rols_authorizations_t_user_rols_IdRol",
+                        name: "FK_t_rols_authorizations_t_userRol_IdRol",
                         column: x => x.IdRol,
-                        principalTable: "t_user_rols",
+                        principalTable: "t_userRol",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -126,7 +127,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdRol = table.Column<int>(type: "int", nullable: false),
+                    Rol = table.Column<int>(type: "int", nullable: false),
+                    UserRol = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -138,9 +140,9 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_t_users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_t_users_t_user_rols_IdRol",
-                        column: x => x.IdRol,
-                        principalTable: "t_user_rols",
+                        name: "FK_t_users_t_userRol_Rol",
+                        column: x => x.Rol,
+                        principalTable: "t_userRol",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -161,9 +163,9 @@ namespace Data.Migrations
                 column: "IdRol");
 
             migrationBuilder.CreateIndex(
-                name: "IX_t_users_IdRol",
+                name: "IX_t_users_Rol",
                 table: "t_users",
-                column: "IdRol");
+                column: "Rol");
         }
 
         /// <inheritdoc />
@@ -185,7 +187,7 @@ namespace Data.Migrations
                 name: "t_endpoint_authorizations");
 
             migrationBuilder.DropTable(
-                name: "t_user_rols");
+                name: "t_userRol");
         }
     }
 }

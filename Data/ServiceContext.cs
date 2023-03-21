@@ -18,17 +18,17 @@ namespace Data
         public ServiceContext(DbContextOptions<ServiceContext> options) : base(options) { }
         public DbSet<UserItem> Users { get; set; }
         public DbSet<ProductItem> Products { get; set; }
-        public DbSet<UserRolItem> UserRols { get; set; }
         public DbSet<AuthorizationItem> UserAuthorizations { get; set; }
         public DbSet<RolAuthorization> RolsAuthorizations { get; set; }
         public DbSet<FileItem> Files { get; set; }
+        public DbSet<UserRolItem> UserRol { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             builder.Entity<UserItem>(user =>
             {
                 user.ToTable("t_users");
-                //user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.IdRol);
+                user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.Rol);
             });
 
             builder.Entity<ProductItem>(product =>
@@ -58,8 +58,11 @@ namespace Data
             builder.Entity<FileItem>(user =>
             {
                 user.ToTable("t_files");
-                
+            });
 
+            builder.Entity<UserRolItem>(user =>
+            {
+                user.ToTable("t_userRol");
             });
         }
     }

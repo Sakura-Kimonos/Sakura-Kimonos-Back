@@ -6,7 +6,7 @@ namespace API.IServices
 {
     public interface IUserService
     {
-        int InsertUser(UserItem userItem);
+        int InsertUser(UserRequest userRequest);
         void UpdateUser(UserItem userItem);
         void DeleteUser(int id);
         List<UserItem> GetAllUsers();

@@ -27,9 +27,9 @@ namespace API.Controllers
         //}
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromForm] UserItem userItem)
+        public int InsertUser([FromForm] UserRequest userRequest)
         {
-            return _userService.InsertUser(userItem);
+            return _userService.InsertUser(userRequest);
         }
 
         [HttpGet(Name = "GetAllUsers")]

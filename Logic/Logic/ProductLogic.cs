@@ -64,7 +64,8 @@ namespace Logic.Logic
 
         public void UpdateProduct(ProductItem productItem)
         {
-            
+            _serviceContext.Products.Update(productItem);
+            _serviceContext.SaveChanges();
         }
 
     }
