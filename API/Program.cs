@@ -21,11 +21,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserRolService, UserRolService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 //builder.Services.AddScoped<IUserSecurityLogic, UserSecurityLogic>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<IProductLogic, ProductLogic>();
 builder.Services.AddScoped<IUserRolLogic, UserRolLogic>();
+builder.Services.AddScoped<IOrderLogic, OrderLogic>();
 
 
 builder.Services.AddDbContext<ServiceContext>(

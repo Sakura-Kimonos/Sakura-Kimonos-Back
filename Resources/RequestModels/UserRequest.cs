@@ -1,12 +1,11 @@
 ﻿using Entities.Entities;
-using Entities.Enums;
+
 
 namespace Resources.RequestModels
 {
     public class UserRequest
     {
         public int Rol { get; set; }
-        public UserRolEnum UserRol { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
      
@@ -18,7 +17,6 @@ namespace Resources.RequestModels
             userItem.Rol = Rol;
             userItem.UserName = UserName;
             userItem.Password = Password;
-            userItem.UserRol = UserRol; 
             userItem.InsertDate = DateTime.Now;
             userItem.UpdateDate = DateTime.Now;
             userItem.IsActive = true;

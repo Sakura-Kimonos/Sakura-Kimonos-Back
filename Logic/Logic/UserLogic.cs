@@ -23,6 +23,15 @@ namespace Logic.Logic
             _serviceContext.SaveChanges();
 
         }
+        public void DeactivateUser(int id)
+        {
+            var userToDeactivate = _serviceContext.Set<UserItem>()
+           .Where(i => i.Id == id).First();
+
+            userToDeactivate.IsActive = false;
+
+            _serviceContext.SaveChanges();
+        }
 
         public List<UserItem> GetAllUsers()
         {

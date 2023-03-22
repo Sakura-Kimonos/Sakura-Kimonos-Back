@@ -9,6 +9,7 @@ namespace API.IServices
         int InsertUser(UserRequest userRequest);
         void UpdateUser(UserItem userItem);
         void DeleteUser(int id);
+        void DeactivateUser(int id);
         List<UserItem> GetAllUsers();
         List<UserItem> GetUsersByCriteria(UserFilter userFilter);
     }

@@ -1,6 +1,7 @@
 ﻿using API.IServices;
 using Entities.Entities;
 using Logic.ILogic;
+using Logic.Logic;
 using Resources.FilterModels;
 using Resources.RequestModels;
 
@@ -40,6 +41,11 @@ namespace API.Services
         public void UpdateUser(UserItem userItem)
         {
             _userLogic.UpdateUser(userItem);
+        }
+
+        void IUserService.DeactivateUser(int id)
+        {
+            _userLogic.DeactivateUser(id);
         }
     }
 }

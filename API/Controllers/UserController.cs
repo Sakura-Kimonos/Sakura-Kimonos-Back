@@ -1,4 +1,5 @@
 ﻿using API.IServices;
+using API.Services;
 using Data;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,12 @@ namespace API.Controllers
             return _userService.GetUsersByCriteria(userFilter);
         }
 
+        [HttpDelete(Name = "DeactivateUser")]
+        public void DeactivateUser([FromQuery] int id)
+        {
+            _userService.DeactivateUser(id);
+        }
+
         //[HttpGet(Name = "GetBirthdayEmployee")]
         //public List<ProductItem> GetBirthdayEmployee()
         //{
@@ -70,7 +77,7 @@ namespace API.Controllers
         //    var employeeList = _serviceContext.Set<EmployeeItem>().Where(p => p.IsActive);
         //    var first = employeeList.FirstOrDefault();
         //    return first.Person.BirthDay;
-        }
+    }
  }
 
 

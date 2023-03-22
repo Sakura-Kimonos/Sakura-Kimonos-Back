@@ -22,6 +22,7 @@ namespace Data
         public DbSet<RolAuthorization> RolsAuthorizations { get; set; }
         public DbSet<FileItem> Files { get; set; }
         public DbSet<UserRolItem> UserRol { get; set; }
+        public DbSet<OrderItem> Orders { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -58,11 +59,17 @@ namespace Data
             builder.Entity<FileItem>(user =>
             {
                 user.ToTable("t_files");
+
             });
 
             builder.Entity<UserRolItem>(user =>
             {
                 user.ToTable("t_userRol");
+            });
+            builder.Entity<OrderItem>(order =>
+            {
+                order.ToTable("t_orders");
+                order.HasOne<ProductItem>().WithMany().HasForeignKey(u => u.ProductId);
             });
         }
     }
