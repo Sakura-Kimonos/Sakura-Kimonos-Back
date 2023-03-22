@@ -33,6 +33,17 @@ builder.Services.AddScoped<IOrderLogic, OrderLogic>();
 builder.Services.AddDbContext<ServiceContext>(
         options => options.UseSqlServer("name=ConnectionStrings:ServiceContext"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+    builder =>
+    {
+        builder.AllowAnyOrigin()
+     .AllowAnyMethod()
+    .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +60,8 @@ if (app.Environment.IsDevelopment())
 //    requestAuthorizationMiddleware.ValidateRequestAutorizathion(context);
 //    await next();
 //});
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 

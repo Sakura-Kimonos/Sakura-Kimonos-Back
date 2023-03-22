@@ -37,6 +37,11 @@ namespace API.Services
             return _productLogic.GetProductByCriteria(productFilter);
         }
 
+        public List<ProductItem> GetProductById(int id)
+        {
+            return _productLogic.GetProductById(id);
+        }
+
         public int AddProduct(ProductRequest productRequest)
         {
             var newProductItem = productRequest.ToProductItem();

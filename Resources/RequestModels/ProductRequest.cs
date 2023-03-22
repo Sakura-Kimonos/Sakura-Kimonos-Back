@@ -10,7 +10,7 @@ namespace Resources.RequestModels
 {
     public class ProductRequest
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public int IdPhotoFile { get; set; }
         public string Description { get; set; }
@@ -19,12 +19,12 @@ namespace Resources.RequestModels
         public string Material { get; set; }
         public string Season { get; set; }
         public string Pattern { get; set; }
-        public int Stock { get; set; }
+        public int Units { get; set; }
         public ProductItem ToProductItem()
         {
             var product = new ProductItem();
 
-            product.Name = Name;
+            product.Title = Title;
             product.IdPhotoFile= IdPhotoFile;
             product.Description = Description;
             product.Price = Price;
@@ -32,7 +32,7 @@ namespace Resources.RequestModels
             product.Material = Material;
             product.Season = Season;
             product.Pattern = Pattern;
-            product.Stock = Stock;
+            product.Units = Units;
 
 
             product.AddedDate = DateTime.Now;

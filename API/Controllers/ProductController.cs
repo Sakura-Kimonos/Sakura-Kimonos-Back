@@ -3,11 +3,11 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Resources.FilterModels;
 using Resources.RequestModels;
-
+using System.Web.Http.Cors;
 
 namespace API.Controllers
 {
-    [ApiController]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Route("[controller]/[action]")]
     public class ProductController : ControllerBase
     {
@@ -30,6 +30,18 @@ namespace API.Controllers
             return _productService.GetAllProducts();
         }
 
+        [HttpGet(Name = "GetProductByCriteria")]
+        public List<ProductItem> GetByCriteria([FromQuery] ProductFilter productFilter)
+        {
+            return _productService.GetProductByCriteria(productFilter);
+        }
+
+        [HttpGet(Name= "GetProductById")]
+        public List<ProductItem> GetProductById([FromQuery] int id)
+        {
+            return _productService.GetProductById(id);
+        }
+
         [HttpPatch(Name = "UpdateProduct")]
         public void Patch([FromBody] ProductItem productItem)
         {
@@ -40,12 +52,6 @@ namespace API.Controllers
         public void Delete([FromQuery] int id)
         {
             _productService.DeleteProduct(id);
-        }
-
-        [HttpGet(Name = "GetProductByCriteria")]
-        public List<ProductItem> GetByCriteria([FromQuery] ProductFilter productFilter)
-        {
-            return _productService.GetProductByCriteria(productFilter);
         }
 
         [HttpDelete(Name = "DeactivateProduct")]

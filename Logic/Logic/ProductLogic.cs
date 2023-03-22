@@ -43,7 +43,6 @@ namespace Logic.Logic
         {
             return _serviceContext.Set<ProductItem>().ToList();
         }
-
         public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
         {
             var resultList = _serviceContext.Set<ProductItem>()
@@ -62,12 +61,19 @@ namespace Logic.Logic
             return resultList.ToList();
         }
 
+
         public void UpdateProduct(ProductItem productItem)
         {
             _serviceContext.Products.Update(productItem);
             _serviceContext.SaveChanges();
         }
 
+        List<ProductItem> IProductLogic.GetProductById(int id)
+        {
+            var selection = _serviceContext.Set<ProductItem>()
+               .Where(i => i.Id == id).ToList();
+            return selection;
+        }
     }
 }
 

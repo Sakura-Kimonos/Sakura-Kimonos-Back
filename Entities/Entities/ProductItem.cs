@@ -22,14 +22,14 @@ namespace Entities.Entities
         public int IdPhotoFile { get; set; }
         //public virtual FileItem PhotoFile { get; set; }
         public Guid IdWeb { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
         public string Category { get; set; }
         public string Material { get; set; }
         public string Season { get; set; }
         public string Pattern { get; set; }
-        public int Stock { get; set; }
+        public int Units { get; set; }
 
         public bool IsActive { get; set; }
         public bool IsPublic { get; set; }

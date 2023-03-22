@@ -14,6 +14,7 @@ namespace Logic.ILogic
         int AddProduct(ProductItem productItem);
         List<ProductItem> GetAllProducts();
         List<ProductItem> GetProductByCriteria(ProductFilter productFilter);
+        List<ProductItem> GetProductById(int id); 
         void DeactivateProduct(int id);
         void DeleteProduct(int id);
         void UpdateProduct(ProductItem productItem);
