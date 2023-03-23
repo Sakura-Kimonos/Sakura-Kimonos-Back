@@ -51,5 +51,11 @@ namespace API.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<FileItem> GetAllFiles()
+        {
+            return _serviceContext.Set<FileItem>().ToList();
+        }
+
     }
 }

@@ -24,7 +24,7 @@ namespace Resources.RequestModels
         {
             var product = new ProductItem();
 
-            product.Title = Title;
+            product.Title = this.Title;
             product.IdPhotoFile= IdPhotoFile;
             product.Description = Description;
             product.Price = Price;
@@ -33,6 +33,7 @@ namespace Resources.RequestModels
             product.Season = Season;
             product.Pattern = Pattern;
             product.Units = Units;
+            
 
 
             product.AddedDate = DateTime.Now;

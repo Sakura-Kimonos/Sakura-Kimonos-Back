@@ -4,6 +4,7 @@ using Logic.ILogic;
 using Resources.FilterModels;
 using Resources.RequestModels;
 using Microsoft.AspNetCore.Mvc;
+using API.Models;
 
 namespace API.Services
 {
@@ -42,16 +43,22 @@ namespace API.Services
             return _productLogic.GetProductById(id);
         }
 
-        public int AddProduct(ProductRequest productRequest)
-        {
-            var newProductItem = productRequest.ToProductItem();
+        //public int AddProduct(ProductUploadModel productUploadModel)
+        //{
+        //    var newProductItem = productUploadModel.ToProductItem();
             
-            return _productLogic.AddProduct(newProductItem);
-        }
+        //    return _productLogic.AddProduct(newProductItem);
+        //}
 
         public void UpdateProduct(ProductItem productItem)
         {
             _productLogic.UpdateProduct(productItem);
+        }
+
+        int IProductService.AddProduct(ProductRequest productRequest)
+        {
+            var newProductItem = productRequest.ToProductItem();
+            return _productLogic.AddProduct(newProductItem);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Data
             builder.Entity<ProductItem>(product =>
             {
                 product.ToTable("t_products");
-                product.HasOne<FileItem>().WithMany().HasForeignKey(u => u.IdPhotoFile);
+                //product.HasOne<FileItem>().WithMany().HasForeignKey(u => u.IdPhotoFile);
             }
             );
 
