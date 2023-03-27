@@ -1,5 +1,5 @@
 ﻿using Entities.Entities;
-using Resources.FilterModels;
+using API.Models; 
 using System;
 using System.Collections.Generic;
 using System.Linq;

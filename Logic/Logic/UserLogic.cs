@@ -1,7 +1,6 @@
 ﻿using Data;
 using Entities.Entities;
 using Logic.ILogic;
-using Resources.FilterModels;
 //using Resources.Enums;
 
 namespace Logic.Logic

@@ -1,13 +1,13 @@
 ﻿using Data;
 using Entities.Entities;
 using Logic.ILogic;
-using Resources.FilterModels;
-using Resources.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace Logic.Logic
 {
@@ -39,27 +39,28 @@ namespace Logic.Logic
             _serviceContext.SaveChanges();
         }
 
-        public List<ProductItem> GetAllProducts()
+        public List<ProductItem> GetAllProduct()
         {
             return _serviceContext.Set<ProductItem>().ToList();
         }
-        public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
-        {
-            var resultList = _serviceContext.Set<ProductItem>()
-                                .Where(p => p.IsActive == true);
 
-            if (productFilter.InsertDateFrom != null)
-            {
-                resultList = resultList.Where(p => p.AddedDate> productFilter.InsertDateFrom);
-            }
+        //public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
+        //{
+        //    var resultList = _serviceContext.Set<ProductItem>()
+        //                        .Where(p => p.IsActive == true);
 
-            if (productFilter.InsertDateTo != null)
-            {
-                resultList = resultList.Where(p => p.AddedDate < productFilter.InsertDateTo);
-            }
+        //    if (productFilter.InsertDateFrom != null)
+        //    {
+        //        resultList = resultList.Where(p => p.AddedDate > productFilter.InsertDateFrom);
+        //    }
 
-            return resultList.ToList();
-        }
+        //    if (productFilter.InsertDateTo != null)
+        //    {
+        //        resultList = resultList.Where(p => p.AddedDate < productFilter.InsertDateTo);
+        //    }
+
+        //    return resultList.ToList();
+        //}
 
 
         public void UpdateProduct(ProductItem productItem)
@@ -67,7 +68,6 @@ namespace Logic.Logic
             _serviceContext.Products.Update(productItem);
             _serviceContext.SaveChanges();
         }
-
         List<ProductItem> IProductLogic.GetProductById(int id)
         {
             var selection = _serviceContext.Set<ProductItem>()

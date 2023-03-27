@@ -1,5 +1,5 @@
 ﻿using Entities.Entities;
-using Resources.FilterModels;
+using API.Models;
 
 
 namespace Logic.ILogic

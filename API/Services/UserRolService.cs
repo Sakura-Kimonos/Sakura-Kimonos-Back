@@ -1,7 +1,6 @@
 ﻿using API.IServices;
 using Entities.Entities;
 using Logic.ILogic;
-using Resources.FilterModels;
 using Resources.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 

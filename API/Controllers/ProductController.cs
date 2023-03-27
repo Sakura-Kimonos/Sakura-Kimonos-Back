@@ -1,12 +1,11 @@
 ﻿using API.IServices;
 using API.Models;
-using API.Services;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Resources.FilterModels;
-using Resources.RequestModels;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Web.Http.Cors;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+
+
 
 namespace API.Controllers
 {
@@ -16,31 +15,20 @@ namespace API.Controllers
     {
 
         private readonly IProductService _productService;
+        private readonly IFileService _fileService;
 
-        [Obsolete]
-        public ProductController(IProductService productService)
+       
+        public ProductController(IProductService productService, IFileService fileService)
         {
             _productService = productService;
-            
+            _fileService = fileService;
         }
 
-        //[HttpPost(Name = "AddProduct")]
-        //public int AddProduct([FromForm] ProductUploadModel productUploadModel)
+        //[HttpGet(Name = "GetProductByCriteria")]
+        //public List<ProductItem> GetByCriteria([FromQuery] ProductFilter productFilter)
         //{
-        //    Copiar código de la web recurso 
+        //    return _productService.GetProductByCriteria(productFilter);
         //}
-
-        [HttpGet(Name = "GetAllProducts")]
-        public List<ProductItem> GetAllProducts()
-        {
-            return _productService.GetAllProducts();
-        }
-
-        [HttpGet(Name = "GetProductByCriteria")]
-        public List<ProductItem> GetByCriteria([FromQuery] ProductFilter productFilter)
-        {
-            return _productService.GetProductByCriteria(productFilter);
-        }
 
         [HttpGet(Name= "GetProductById")]
         public List<ProductItem> GetProductById([FromQuery] int id)
@@ -49,7 +37,7 @@ namespace API.Controllers
         }
 
         [HttpPatch(Name = "UpdateProduct")]
-        public void Patch([FromBody] ProductItem productItem)
+        public void UpdateProduct([FromBody] ProductItem productItem)
         {
             _productService.UpdateProduct(productItem);
         }
@@ -66,43 +54,63 @@ namespace API.Controllers
             _productService.DeactivateProduct(id);
         }
 
-        [HttpPost(Name = "AddProduct")]
-
-        public int AddProduct([FromBody] ProductRequest productRequest)
+        [HttpGet(Name = "GetAllProduct")]
+        public List<ProductItem> GetAllProduct()
         {
-            return _productService.AddProduct(productRequest);
+            try
+            {
+                var fileList = _fileService.GetAllImagesList();
+                var productList = _productService.GetAllProduct();
+
+                List<Base64FileModel> base64FileList = new List<Base64FileModel>();
+
+                foreach (var file in fileList)
+                {
+                    Base64FileModel base64FileModel = new Base64FileModel();
+                    base64FileModel.FileName = file.Name;
+                    base64FileModel.Content = file.Base64Content;
+                    base64FileModel.FileExtension = file.FileExtension;
+                    base64FileList.Add(base64FileModel);
+                    
+                }
+                return _productService.GetAllProduct();
+                //return base64FileList; 
+            } catch (Exception ex) { throw; }
+          
         }
-        //public async Task<IActionResult> DemoFormDataUpload([FromForm] ProductUploadModel productUploadModel)
-        //{
-        //    // Check if the request contains multipart/form-data.
-        //    if (productUploadModel.Image == null)
-        //    {
-        //        return new UnsupportedMediaTypeResult();
-        //    }
 
-        //    if (productUploadModel.Image.Length > 0)
-        //    {
-        //        IFormFile formFile = productUploadModel.Image;
+        [HttpPost(Name = "AddProduct")]
+        public int AddProduct([FromBody] NewProductRequest newProductRequest)
+        {
+            try
+            {
+                var fileItem = new FileItem();
 
-        //        var folderPath = Path.Combine(_environment.WebRootPath, "upload");
-        //        //var filePath = Path.Combine(folderPath, $"{Path.GetRandomFileName() + Path.GetExtension(formFile.FileName).ToLowerInvariant()}");
-        //        var filePath = Path.Combine(folderPath, formFile.FileName);
+                fileItem.Id = 0;
+                fileItem.Name = newProductRequest.FileData.FileName;
+                fileItem.InsertDate = DateTime.Now;
+                fileItem.UpdateDate = DateTime.Now;
+                fileItem.Content = Convert.FromBase64String(newProductRequest.FileData.Base64FileContent);
 
-        //        if (!Directory.Exists(folderPath))
-        //        {
-        //            Directory.CreateDirectory(folderPath);
-        //        }
-        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            await formFile.CopyToAsync(fileStream);
-        //            fileStream.Flush();
-        //            return Ok(new { status = "Upload Success", length = formFile.Length, name = formFile.FileName });
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return NotFound("Failed to upload");
-        //    }
+                var fileId = _fileService.InsertFile(fileItem);
+
+                var productItem = new ProductItem();
+                productItem.Title = newProductRequest.ProductData.Title;
+                productItem.Price = newProductRequest.ProductData.Price;
+                productItem.Description = newProductRequest.ProductData.Description;
+                productItem.Material = newProductRequest.ProductData.Material;
+                productItem.Pattern = newProductRequest.ProductData.Pattern;
+                productItem.Category = newProductRequest.ProductData.Category;
+                productItem.Season = newProductRequest.ProductData.Season;
+                productItem.Units = newProductRequest.ProductData.Units;
+                productItem.IdPhotoFile = fileId;
+                return _productService.AddProduct(productItem);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+    }
  }
 

@@ -29,7 +29,7 @@ namespace Data
             builder.Entity<UserItem>(user =>
             {
                 user.ToTable("t_users");
-                user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.Rol);
+                //user.HasOne<UserRolItem>().WithMany().HasForeignKey(u => u.Rol);
             });
 
             builder.Entity<ProductItem>(product =>

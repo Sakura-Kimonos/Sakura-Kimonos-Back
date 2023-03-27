@@ -9,6 +9,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -53,17 +62,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.Use(async (context, next) => {
-//    var serviceScope = app.Services.CreateScope();
-//    var userSecurityService = serviceScope.ServiceProvider.GetRequiredService<IUserSecurityService>();
-//    var requestAuthorizationMiddleware = new RequestAuthorizationMiddleware(userSecurityService);
-//    requestAuthorizationMiddleware.ValidateRequestAutorizathion(context);
-//    await next();
-//});
-
-app.UseCors("AllowAll");
-
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

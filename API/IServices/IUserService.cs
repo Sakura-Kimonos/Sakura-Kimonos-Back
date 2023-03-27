@@ -1,12 +1,13 @@
-﻿using Entities.Entities;
-using Resources.FilterModels;
-using Resources.RequestModels;
+﻿using API.Models;
+using Entities.Entities;
+using Logic.ILogic;
+
 
 namespace API.IServices
 {
     public interface IUserService
     {
-        int InsertUser(UserRequest userRequest);
+        int InsertUser(UserItem userItem);
         void UpdateUser(UserItem userItem);
         void DeleteUser(int id);
         void DeactivateUser(int id);

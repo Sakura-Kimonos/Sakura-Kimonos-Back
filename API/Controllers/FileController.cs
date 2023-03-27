@@ -66,10 +66,10 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet(Name = "GetAllFilesList")]
-        public List<FileItem> GetAllFilesList()
+        [HttpGet(Name = "GetAllImagesList")]
+        public List<FileItem> GetAllImagesList()
         {
-            return _fileService.GetAllFiles();
+            return _fileService.GetAllImagesList();
         }
 
         [HttpGet(Name = "GetAllFilesZip")]
@@ -81,7 +81,7 @@ namespace API.Controllers
                 using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
                     //QUery the Products table and get all image content
-                    _fileService.GetAllFiles().ForEach(file =>
+                    _fileService.GetAllImagesList().ForEach(file =>
                     {
                         var entry = zip.CreateEntry(file.Name);
                         using (var fileStream = new MemoryStream(file.Content))

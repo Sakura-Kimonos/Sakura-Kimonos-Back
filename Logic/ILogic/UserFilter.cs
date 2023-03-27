@@ -1,4 +1,4 @@
-﻿namespace Resources.FilterModels
+﻿namespace Logic.ILogic
 {
     public class UserFilter
     {

@@ -1,19 +1,21 @@
 ﻿using API.IServices;
 using Entities.Entities;
 using Logic.ILogic;
-using Resources.FilterModels;
 using Resources.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using API.Models;
+using API.Models.FilterModels;
+using Data;
 
 namespace API.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductLogic _productLogic;
-        
-        public ProductService(IProductLogic productLogic)
+        private readonly ServiceContext _serviceContext;
+        public ProductService(ServiceContext serviceContext, IProductLogic productLogic)
         {
+            _serviceContext = serviceContext;
             _productLogic = productLogic;
         }
 
@@ -28,37 +30,31 @@ namespace API.Services
             _productLogic.DeleteProduct(id);
         }
 
-        public List<ProductItem> GetAllProducts()
+        public List<ProductItem> GetAllProduct()
         {
-            return _productLogic.GetAllProducts();
+            return _productLogic.GetAllProduct();
         }
 
-        public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
-        {
-            return _productLogic.GetProductByCriteria(productFilter);
-        }
+        //public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
+        //{
+        //    return _productLogic.GetProductByCriteria(productFilter);
+        //}
 
         public List<ProductItem> GetProductById(int id)
         {
             return _productLogic.GetProductById(id);
         }
 
-        //public int AddProduct(ProductUploadModel productUploadModel)
-        //{
-        //    var newProductItem = productUploadModel.ToProductItem();
-            
-        //    return _productLogic.AddProduct(newProductItem);
-        //}
-
         public void UpdateProduct(ProductItem productItem)
         {
             _productLogic.UpdateProduct(productItem);
         }
 
-        int IProductService.AddProduct(ProductRequest productRequest)
+        int IProductService.AddProduct(ProductItem productItem)
         {
-            var newProductItem = productRequest.ToProductItem();
-            return _productLogic.AddProduct(newProductItem);
+            _serviceContext.Products.Add(productItem);
+            _serviceContext.SaveChanges();
+            return productItem.Id;
         }
     }
 }

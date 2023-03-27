@@ -1,26 +1,18 @@
-﻿using API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Entities.Entities
 {
     public class ProductItem
     {
-        public ProductItem() 
+        public ProductItem()
         {
-            
+
             IsActive = true;
             IsPublic = true;
-            
+
         }
 
         public int Id { get; set; }
-
         public int IdPhotoFile { get; set; }
-        //public virtual FileItem PhotoFile { get; set; }
         public Guid IdWeb { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

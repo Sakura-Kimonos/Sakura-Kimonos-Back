@@ -1,6 +1,4 @@
 ﻿using Entities.Entities;
-using Resources.FilterModels;
-using Resources.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

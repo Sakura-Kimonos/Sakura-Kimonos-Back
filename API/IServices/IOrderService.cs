@@ -1,10 +1,10 @@
 ﻿using Entities.Entities;
-using Resources.FilterModels;
 using Resources.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using API.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
+using Logic.ILogic;
 
 namespace API.IServices
 {

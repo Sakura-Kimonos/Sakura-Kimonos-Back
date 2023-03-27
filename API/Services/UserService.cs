@@ -1,19 +1,22 @@
 ﻿using API.IServices;
+using API.Models;
+using Data;
 using Entities.Entities;
 using Logic.ILogic;
 using Logic.Logic;
-using Resources.FilterModels;
-using Resources.RequestModels;
+
 
 namespace API.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserLogic _userLogic;
+        private readonly ServiceContext _serviceContext;
         //private readonly IUserSecurityLogic _userSecurityLogic;
-        public UserService(IUserLogic userLogic)
+        public UserService(ServiceContext serviceContext, IUserLogic userLogic)
         {
             _userLogic = userLogic;
+            _serviceContext = serviceContext;
             //_userSecurityLogic = userSecurityLogic;
         }
 
@@ -32,10 +35,11 @@ namespace API.Services
             return _userLogic.GetUsersByCriteria(userFilter);
         }
 
-        public int InsertUser(UserRequest userRequest)
+        int IUserService.InsertUser(UserItem userItem)
         {
-            var newUserRequest = userRequest.ToUserItem();
-            return _userLogic.InsertUser(newUserRequest);
+            _serviceContext.Users.Add(userItem);
+            _serviceContext.SaveChanges();
+            return userItem.Id;
         }
 
         public void UpdateUser(UserItem userItem)

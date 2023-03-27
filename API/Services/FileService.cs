@@ -52,7 +52,7 @@ namespace API.Services
             throw new NotImplementedException();
         }
 
-        public List<FileItem> GetAllFiles()
+        public List<FileItem> GetAllImagesList()
         {
             return _serviceContext.Set<FileItem>().ToList();
         }

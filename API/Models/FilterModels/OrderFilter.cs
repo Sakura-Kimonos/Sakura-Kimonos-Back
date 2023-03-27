@@ -1,4 +1,4 @@
-﻿namespace Resources.FilterModels
+﻿namespace API.Models.FilterModels
 {
     public class OrderFilter
     {

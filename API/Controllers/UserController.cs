@@ -1,10 +1,11 @@
 ﻿using API.IServices;
+using API.Models;
 using API.Services;
 using Data;
 using Entities.Entities;
+using Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
-using Resources.FilterModels;
-using Resources.RequestModels;
+
 //using Security.IServices;
 
 namespace API.Controllers
@@ -28,13 +29,25 @@ namespace API.Controllers
         //}
 
         [HttpPost(Name = "InsertUser")]
-        public int InsertUser([FromForm] UserRequest userRequest)
+        public int InsertUser([FromBody] NewUserRequestModel newUserRequestModel)
         {
-            return _userService.InsertUser(userRequest);
+            
+            var userItem = new UserItem();
+            userItem.Rol = newUserRequestModel.UserData.Rol; 
+            userItem.FullName = newUserRequestModel.UserData.FullName;
+            userItem.Email = newUserRequestModel.UserData.Email;
+            userItem.Password = newUserRequestModel.UserData.Password;
+            userItem.Age = newUserRequestModel.UserData.Age;
+            userItem.ShippingAddress = newUserRequestModel.UserData.ShippingAddress;
+            userItem.PhoneNumber = newUserRequestModel.UserData.PhoneNumber;
+            userItem.InsertDate = newUserRequestModel.UserData.InsertDate;
+            userItem.UpdateDate = newUserRequestModel.UserData.UpdateDate;
+            userItem.IsActive = newUserRequestModel.UserData.IsActive;
+            return _userService.InsertUser(userItem);
         }
 
         [HttpGet(Name = "GetAllUsers")]
-        public List<UserItem> GetAll()
+        public List<UserItem> GetAllUsers()
         {
             return _userService.GetAllUsers();
         }
@@ -51,8 +64,8 @@ namespace API.Controllers
             _userService.DeleteUser(id);
         }
 
-        [HttpGet(Name = "GetUsersByCriteria")]
-        public List<UserItem> GetByCriteria([FromQuery] UserFilter userFilter)
+        [HttpGet(Name = "GetUserByCriteria")]
+        public List<UserItem> GetUserByCriteria([FromQuery] UserFilter userFilter)
         {
             return _userService.GetUsersByCriteria(userFilter);
         }
@@ -63,20 +76,7 @@ namespace API.Controllers
             _userService.DeactivateUser(id);
         }
 
-        //[HttpGet(Name = "GetBirthdayEmployee")]
-        //public List<ProductItem> GetBirthdayEmployee()
-        //{
-
-        //    //sin virtual
-        //    //var employee = _serviceContext.Set<EmployeeItem>().Where(p => p.Id == employeeId).First();
-        //    //var person = _serviceContext.Set<PersonItem>().Where(p => p.Id == employee.IdPerson).First();
-        //    //return person.BirthDay;
-
-        //    //con virtual
-
-        //    var employeeList = _serviceContext.Set<EmployeeItem>().Where(p => p.IsActive);
-        //    var first = employeeList.FirstOrDefault();
-        //    return first.Person.BirthDay;
+        
     }
  }
 
