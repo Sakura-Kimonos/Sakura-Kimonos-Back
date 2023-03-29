@@ -16,10 +16,13 @@ It must be noted that, even though the Sakura-Kimonos-Front project may be run u
 2. Create your own local database in Microsoft SQL Server Management Studio </p> 
 
 3. Connect your new database to Sakura-Kimonos-Back project accessing _appsettings.json_ file </p> 
+4. Run *add-migration _name_ -Project Data* 
+                  
+5. Run *update-database*                 
 
-4. Gheck the connection is active in the Server Explorer </p> 
+6. Gheck the connection is active in the Server Explorer </p> 
 
-5. All set! Build Sakura-Kimonos-Back solution and run _npm run dev_ command in Sakura-Kimonos-Front project </p> 
+7. All set! Build Sakura-Kimonos-Back solution and run _npm run dev_ command in Sakura-Kimonos-Front project </p> 
 
 > While connecting the project to your database, note that your *Data source=...* and *initial catalog=...* corresponds to the name of your computer and the name of your database respectively.  
 
