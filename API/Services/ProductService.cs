@@ -35,11 +35,10 @@ namespace API.Services
             return _productLogic.GetAllProduct();
         }
 
-        //public List<ProductItem> GetProductByCriteria(ProductFilter productFilter)
-        //{
-        //    return _productLogic.GetProductByCriteria(productFilter);
-        //}
-
+        public List<ProductItem> GetProduct()
+        {
+            return _productLogic.GetProduct();
+        }
         public List<ProductItem> GetProductById(int id)
         {
             return _productLogic.GetProductById(id);

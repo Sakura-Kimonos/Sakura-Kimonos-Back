@@ -1,4 +1,7 @@
 ﻿
+using API.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Entities.Entities
 {
     public class ProductItem
@@ -28,6 +31,21 @@ namespace Entities.Entities
 
         public DateTime UpdateDate { get; set; }
         public DateTime AddedDate { get; set; }
-
+        //[NotMapped]
+        //public Base64FileModel Base64FileModel { get; set; }
+        
     }
+    public class Base64FileModel
+    {
+        public string FileName { get; set; }
+        public string Content { get; set; }
+        public FileExtensionEnum FileExtension { get; set; }
+    }
+
+    public class ProductInfoModel
+    {
+        public ProductItem ProducItem { get; set; }
+        public Base64FileModel Base64FileModel { get; set; }
+    }
+
 }

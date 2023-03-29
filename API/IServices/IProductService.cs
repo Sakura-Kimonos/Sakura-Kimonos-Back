@@ -12,6 +12,7 @@ namespace API.IServices
     {
             int AddProduct(ProductItem productItem);
             List<ProductItem> GetAllProduct();
+            List<ProductItem> GetProduct(); 
             //List<ProductItem> GetProductByCriteria(ProductFilter productFilter);
             List<ProductItem> GetProductById(int id);
             void DeactivateProduct(int id);

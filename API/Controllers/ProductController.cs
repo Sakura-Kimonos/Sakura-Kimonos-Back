@@ -4,8 +4,8 @@ using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Web.Http.Cors;
-
-
+using static Entities.Entities.ProductItem;
+using Base64FileModel = Entities.Entities.Base64FileModel;
 
 namespace API.Controllers
 {
@@ -17,7 +17,7 @@ namespace API.Controllers
         private readonly IProductService _productService;
         private readonly IFileService _fileService;
 
-       
+
         public ProductController(IProductService productService, IFileService fileService)
         {
             _productService = productService;
@@ -30,7 +30,7 @@ namespace API.Controllers
         //    return _productService.GetProductByCriteria(productFilter);
         //}
 
-        [HttpGet(Name= "GetProductById")]
+        [HttpGet(Name = "GetProductById")]
         public List<ProductItem> GetProductById([FromQuery] int id)
         {
             return _productService.GetProductById(id);
@@ -55,29 +55,47 @@ namespace API.Controllers
         }
 
         [HttpGet(Name = "GetAllProduct")]
-        public List<ProductItem> GetAllProduct()
+        public List<ProductInfoModel> GetAllProduct()
         {
             try
             {
+                List<ProductInfoModel> resultList = new List<ProductInfoModel>();
+
                 var fileList = _fileService.GetAllImagesList();
                 var productList = _productService.GetAllProduct();
 
-                List<Base64FileModel> base64FileList = new List<Base64FileModel>();
 
-                foreach (var file in fileList)
+                foreach (var prod in productList)
                 {
-                    Base64FileModel base64FileModel = new Base64FileModel();
-                    base64FileModel.FileName = file.Name;
-                    base64FileModel.Content = file.Base64Content;
-                    base64FileModel.FileExtension = file.FileExtension;
-                    base64FileList.Add(base64FileModel);
-                    
+                    ProductInfoModel resultItem = new ProductInfoModel();
+                    resultItem.ProducItem = prod;
+
+                    var fileItem = fileList.Where(f => f.Id == prod.IdPhotoFile).First();
+
+                    Base64FileModel fileModel = new Base64FileModel();
+                    fileModel.FileName = fileItem.Name;
+                    fileModel.FileExtension = fileItem.FileExtension;
+                    fileModel.Content = fileItem.Base64Content;
+
+                    resultItem.Base64FileModel = fileModel;
+
+                    resultList.Add(resultItem);
                 }
-                return _productService.GetAllProduct();
-                //return base64FileList; 
-            } catch (Exception ex) { throw; }
-          
+
+                return resultList;
+
+            }
+            catch (Exception ex) { throw; }
+
         }
+
+        //[HttpGet(Name = "GetProduct")]
+
+        //public List<ProductItem> GetProduct()
+        //    {
+        //        return _productService.GetProduct();
+        //    }
+
 
         [HttpPost(Name = "AddProduct")]
         public int AddProduct([FromBody] NewProductRequest newProductRequest)
