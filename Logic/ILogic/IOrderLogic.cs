@@ -12,7 +12,7 @@ namespace Logic.ILogic
     {
         int AddOrder(OrderItem orderItem);
         List<OrderItem> GetAllOrder();
-        List<OrderItem> GetOrderByCriteria(OrderFilter orderFilter);
+        List<OrderItem> GetOrderById(int id);
         void DeactivateOrder(int id);
         void UpdateOrder(OrderItem orderItem);
     }

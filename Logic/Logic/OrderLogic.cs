@@ -35,22 +35,11 @@ namespace Logic.Logic
             return _serviceContext.Set<OrderItem>().ToList();
         }
 
-        public List<OrderItem> GetOrderByCriteria(OrderFilter orderFilter)
+        public List<OrderItem> GetOrderById(int id)
         {
-            var resultList = _serviceContext.Set<OrderItem>()
-                                .Where(p => p.IsActive == true);
-
-            if (orderFilter.OrderDateFrom != null)
-            {
-                resultList = resultList.Where(p => p.OrderDate > orderFilter.OrderDateFrom);
-            }
-
-            if (orderFilter.OrderDateTo != null)
-            {
-                resultList = resultList.Where(p => p.OrderDate < orderFilter.OrderDateTo);
-            }
-
-            return resultList.ToList();
+            var selection = _serviceContext.Set<OrderItem>()
+                .Where(i => i.Id == id).ToList();
+            return selection;
         }
 
         public void UpdateOrder(OrderItem orderItem)

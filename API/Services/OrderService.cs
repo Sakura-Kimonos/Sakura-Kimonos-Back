@@ -25,9 +25,9 @@ namespace API.Services
             return _orderLogic.GetAllOrder();
         }
 
-        public List<OrderItem> GetOrderByCriteria(OrderFilter orderFilter)
+        public List<OrderItem> GetOrderById(int id)
         {
-            return _orderLogic.GetOrderByCriteria(orderFilter);
+            return _orderLogic.GetOrderById(id);
         }
 
         public int AddOrder(OrderItem orderItem)
@@ -39,5 +39,6 @@ namespace API.Services
         {
             _orderLogic.UpdateOrder(orderItem);
         }
+
     }
 }

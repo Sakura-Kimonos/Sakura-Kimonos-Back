@@ -37,9 +37,37 @@ namespace API.Controllers
         }
 
         [HttpPatch(Name = "UpdateProduct")]
-        public void UpdateProduct([FromBody] ProductItem productItem)
+        public void UpdateProduct([FromBody] NewProductRequest newProductRequest)
         {
-            _productService.UpdateProduct(productItem);
+            try
+            {
+                var fileItem = new FileItem();
+
+                fileItem.Id = 0;
+                fileItem.Name = newProductRequest.FileData.FileName;
+                fileItem.InsertDate = DateTime.Now;
+                fileItem.UpdateDate = DateTime.Now;
+                fileItem.Content = Convert.FromBase64String(newProductRequest.FileData.Base64FileContent);
+
+                var fileId = _fileService.InsertFile(fileItem);
+
+                var productItem = new ProductItem();
+                productItem.Id = newProductRequest.ProductData.Id; 
+                productItem.Title = newProductRequest.ProductData.Title;
+                productItem.Price = newProductRequest.ProductData.Price;
+                productItem.Description = newProductRequest.ProductData.Description;
+                productItem.Material = newProductRequest.ProductData.Material;
+                productItem.Pattern = newProductRequest.ProductData.Pattern;
+                productItem.Category = newProductRequest.ProductData.Category;
+                productItem.Season = newProductRequest.ProductData.Season;
+                productItem.Units = newProductRequest.ProductData.Units;
+                productItem.IdPhotoFile = fileId;
+                 _productService.UpdateProduct(productItem);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpDelete(Name = "DeleteProduct")]
@@ -88,14 +116,6 @@ namespace API.Controllers
             catch (Exception ex) { throw; }
 
         }
-
-        //[HttpGet(Name = "GetProduct")]
-
-        //public List<ProductItem> GetProduct()
-        //    {
-        //        return _productService.GetProduct();
-        //    }
-
 
         [HttpPost(Name = "AddProduct")]
         public int AddProduct([FromBody] NewProductRequest newProductRequest)

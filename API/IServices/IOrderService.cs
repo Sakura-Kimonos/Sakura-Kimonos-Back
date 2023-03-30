@@ -5,6 +5,8 @@ using API.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
 using Logic.ILogic;
+using API.Models.FilterModels;
+using OrderFilter = Logic.ILogic.OrderFilter;
 
 namespace API.IServices
 {
@@ -12,7 +14,7 @@ namespace API.IServices
     {
         int AddOrder(OrderItem orderItem);
         List<OrderItem> GetAllOrder();
-        List<OrderItem> GetOrderByCriteria(OrderFilter orderFilter);
+        List<OrderItem> GetOrderById(int id);
         void DeactivateOrder(int id);
         void UpdateOrder(OrderItem orderItem);
     }
